@@ -1,0 +1,2 @@
+rootProject.name='FruitmanBuyer'
+include ':app'

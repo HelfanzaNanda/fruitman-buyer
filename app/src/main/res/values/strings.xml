@@ -1,0 +1,21 @@
+<resources>
+    <string name="app_name">FruitmanBuyer</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+    <string name="hellotext">Hello</string>
+    <string name="title_purchasement">Pembelian</string>
+    <string name="buyer_waiting">Menunggu Konfirmasi</string>
+    <string name="buyer_in_progress">Dalam proses</string>
+    <string name="buyer_completed">Transaksi sudah selesai</string>
+    <string name="lorem">Lorem ipsum dolor sit amet</string>
+    <string name="large_text">
+        "This is deskripsi produk.\n\n"
+
+        "A material metaphor is the unifying theory of a rationalized space and a system of motion."
+        "The material is grounded in tactile reality, inspired by the study of paper and ink, yet "
+        "technologically advanced and open to imagination and magic.\n"
+
+
+    </string>
+</resources>
