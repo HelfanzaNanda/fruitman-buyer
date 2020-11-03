@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_margin="4dp"
+    app:cardCornerRadius="6dp"
+    android:layout_height="wrap_content">
+
+    <RelativeLayout
+        android:background="?attr/selectableItemBackground"
+        android:padding="16dp"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:textStyle="bold"
+            android:text="duku"
+            android:layout_marginBottom="4dp"
+            android:id="@+id/tv_name_prodcut"
+            android:textSize="16sp"
+            android:layout_marginStart="16dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:layout_below="@id/tv_name_prodcut"
+            android:id="@+id/tv_desc_complete"
+            android:textSize="16sp"
+            android:layout_marginStart="16dp"
+            android:maxLines="5"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:layout_below="@id/tv_desc_complete"
+            android:layout_alignParentEnd="true"
+            android:id="@+id/tv_date"
+            android:textSize="16sp"
+            android:layout_marginEnd="16dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+    </RelativeLayout>
+
+</com.google.android.material.card.MaterialCardView>

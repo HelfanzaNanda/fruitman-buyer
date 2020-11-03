@@ -17,7 +17,6 @@
             android:background="@drawable/background_search_corner"
             android:padding="10dp">
 
-
             <TextView
                 android:id="@+id/textHello"
                 android:layout_width="wrap_content"
@@ -35,7 +34,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="4dp"
                 android:layout_marginTop="15dp"
-                android:text="Yang Login"
                 android:textColor="@color/colorWhite"
                 android:textSize="25sp"
                 android:textStyle="bold"/>
@@ -45,47 +43,111 @@
             <LinearLayout
                 android:layout_marginTop="10dp"
                 android:layout_below="@id/textHello"
-                android:orientation="horizontal"
+                android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="15dp"
-                android:background="@drawable/white_retangle_banckground"
                 android:layout_marginEnd="15dp"
                 android:layout_marginBottom="10dp">
 
-                <EditText
-                    android:id="@+id/search_name"
-                    android:layout_width="0dp"
-                    android:layout_height="40dp"
-                    android:layout_weight="1"
-                    android:hint="cari produk tebasan apa hari ini?"
-                    android:imeOptions="actionSearch"
-                    android:inputType="textFilter"
-                    android:paddingStart="15dp"
-                    android:paddingEnd="15dp"
-                    android:textColor="#888787"
-                    android:textSize="16sp" />
-                <ImageView
-                    android:id="@+id/img_search"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:background="@drawable/search_icon_background"
-                    android:contentDescription="@string/app_name"
-                    android:padding="6dp"
-                    android:src="@drawable/ic_search"
-                    android:tint="@color/trandingStart" />
+                <TextView
+                    android:text="Cari Berdasarkan Kecamattan"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+
+                <LinearLayout
+                    android:layout_marginBottom="10dp"
+                    android:background="@drawable/white_retangle_banckground"
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <Spinner
+                        android:popupBackground="@color/colorWhite"
+                        android:layout_marginBottom="10dp"
+                        android:id="@+id/spinner_sub_district"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:background="@drawable/white_retangle_banckground"
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <Spinner
+                        android:popupBackground="@color/colorWhite"
+                        android:id="@+id/spinner_fruit"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+
+
+                </LinearLayout>
+
+<!--                <EditText-->
+<!--                    android:id="@+id/search_name"-->
+<!--                    android:layout_width="0dp"-->
+<!--                    android:layout_height="40dp"-->
+<!--                    android:layout_weight="1"-->
+<!--                    android:hint="cari produk tebasan apa hari ini?"-->
+<!--                    android:imeOptions="actionSearch"-->
+<!--                    android:inputType="textFilter"-->
+<!--                    android:paddingStart="15dp"-->
+<!--                    android:paddingEnd="15dp"-->
+<!--                    android:textColor="#888787"-->
+<!--                    android:textSize="16sp" />-->
+<!--                <ImageView-->
+<!--                    android:id="@+id/img_search"-->
+<!--                    android:layout_width="40dp"-->
+<!--                    android:layout_height="40dp"-->
+<!--                    android:background="@drawable/search_icon_background"-->
+<!--                    android:contentDescription="@string/app_name"-->
+<!--                    android:padding="6dp"-->
+<!--                    android:src="@drawable/ic_search"-->
+<!--                    android:tint="@color/trandingStart" />-->
+
+
+
             </LinearLayout>
         </RelativeLayout>
         <androidx.recyclerview.widget.RecyclerView
+            android:layout_marginTop="10dp"
             android:id="@+id/rv_timeline"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
+
+        <LinearLayout
+            android:visibility="gone"
+            android:id="@+id/linear_empty"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/img_empty"
+                android:src="@drawable/ic_undraw_empty_xct9"
+                android:layout_width="match_parent"
+                android:layout_height="600dp"/>
+
+            <TextView
+                android:gravity="center_horizontal"
+                android:textStyle="bold"
+                android:textSize="20sp"
+                android:text="Tidak ada Produk"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+        </LinearLayout>
     </LinearLayout>
 
     <ProgressBar
+        android:visibility="gone"
         android:layout_centerInParent="true"
         android:id="@+id/pb_timeline"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
+
 
 </RelativeLayout>

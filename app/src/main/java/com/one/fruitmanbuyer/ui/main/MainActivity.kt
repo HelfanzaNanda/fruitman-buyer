@@ -1,7 +1,11 @@
 package com.one.fruitmanbuyer.ui.main
 
+import android.app.NotificationChannel
+import android.app.NotificationManager
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
+import androidx.appcompat.app.AlertDialog
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
@@ -11,6 +15,8 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.one.fruitmanbuyer.R
 import com.one.fruitmanbuyer.ui.login.LoginActivity
+import com.one.fruitmanbuyer.ui.main.order.OrderFragment
+import com.one.fruitmanbuyer.ui.main.profile.ProfileFragment
 import com.one.fruitmanbuyer.ui.main.timeline.TimelineFragment
 import com.one.fruitmanbuyer.utils.Constants
 import kotlinx.android.synthetic.main.activity_main.*
@@ -19,8 +25,8 @@ class MainActivity : AppCompatActivity() {
 
     companion object{
         var navStatus = -1
-        const val CHANNEL_ID = "travelme-customer"
-        private const val CHANNEL_NAME= "TravelMe"
+        const val CHANNEL_ID = "FruitManBuyer"
+        private const val CHANNEL_NAME= "FruitMan"
         private const val CHANNEL_DESC = "Android FCM"
     }
     private var fragment : Fragment? = null
@@ -33,7 +39,21 @@ class MainActivity : AppCompatActivity() {
         nav_view.setOnNavigationItemSelectedListener(onNavigationItemSelectedListener)
         if(savedInstanceState == null){ nav_view.selectedItemId = R.id.navigation_home }
         isLoggedIn()
+        setupNotificationManager()
+
+        action_info_app.setOnClickListener {
+            AlertDialog.Builder(this@MainActivity).apply {
+                setTitle("FruitmanPengepul versi 1.0")
+                setMessage("Aplikasi untuk membantu pengepul dalam mencari hasil panen buah dengan sistem tebasan by Ikhwanudin")
+                setPositiveButton("ok"){dialog,_ ->
+                    dialog.dismiss()
+                }
+            }.show()
+        }
+
     }
+
+
 
     private val onNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
         when(item.itemId){
@@ -43,19 +63,19 @@ class MainActivity : AppCompatActivity() {
                     navStatus = 0
                 }
             }
-//            R.id.navigation_order -> {
-//                if(navStatus != 1){
-//                    fragment = OrderFragment()
-//                    navStatus = 1
-//                }
-//            }
+            R.id.navigation_order -> {
+                if(navStatus != 1){
+                    fragment = OrderFragment()
+                    navStatus = 1
+                }
+            }
 //
-//            R.id.navigation_profile -> {
-//                if(navStatus != 2){
-//                    fragment = ProfileFragment()
-//                    navStatus = 2
-//                }
-//            }
+            R.id.navigation_profile -> {
+                if(navStatus != 2){
+                    fragment = ProfileFragment()
+                    navStatus = 2
+                }
+            }
         }
         if(fragment == null){
             navStatus = 0
@@ -75,6 +95,15 @@ class MainActivity : AppCompatActivity() {
                 flags = Intent.FLAG_ACTIVITY_CLEAR_TASK
                 flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
             }).also { finish() }
+        }
+    }
+
+    private fun setupNotificationManager(){
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            val channel = NotificationChannel(CHANNEL_ID, CHANNEL_NAME, NotificationManager.IMPORTANCE_DEFAULT)
+            channel.description = CHANNEL_DESC
+            val manager = getSystemService(NotificationManager::class.java)
+            manager.createNotificationChannel(channel)
         }
     }
 }

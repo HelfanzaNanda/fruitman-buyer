@@ -3,11 +3,13 @@ package com.one.fruitmanbuyer.ui.register
 import androidx.lifecycle.ViewModel
 import com.one.fruitmanbuyer.models.RegisterBuyer
 import com.one.fruitmanbuyer.repositories.BuyerRepository
+import com.one.fruitmanbuyer.repositories.FirebaseRepository
 import com.one.fruitmanbuyer.utils.Constants
 import com.one.fruitmanbuyer.utils.SingleLiveEvent
 import com.one.fruitmanbuyer.utils.SingleResponse
 
-class RegisterViewModel (private val buyerRepository: BuyerRepository) : ViewModel(){
+class RegisterViewModel (private val buyerRepository: BuyerRepository,
+                         private val firebaseRepository: FirebaseRepository) : ViewModel(){
     private val state : SingleLiveEvent<RegisterState> = SingleLiveEvent()
 
     private fun setLoading(){ state.value = RegisterState.Loading(true) }
@@ -69,12 +71,23 @@ class RegisterViewModel (private val buyerRepository: BuyerRepository) : ViewMod
         return true
     }
 
-    fun register(registerBuyer: RegisterBuyer){
-        setLoading()
-        buyerRepository.register(registerBuyer, object : SingleResponse<RegisterBuyer>{
-            override fun onSuccess(data: RegisterBuyer?) {
-                hideLoading()
-                success(data!!.email!!)
+    private fun generateTokenFirebase(registerBuyer: RegisterBuyer){
+        firebaseRepository.generateToken(object : SingleResponse<String>{
+            override fun onSuccess(data: String?) {
+                data?.let { token ->
+                    registerBuyer.fcmToken = token
+                    buyerRepository.register(registerBuyer, object : SingleResponse<RegisterBuyer>{
+                        override fun onSuccess(data: RegisterBuyer?) {
+                            hideLoading()
+                            success(data!!.email!!)
+                        }
+
+                        override fun onFailure(err: Error) {
+                            hideLoading()
+                            toast(err.message.toString())
+                        }
+                    })
+                }
             }
 
             override fun onFailure(err: Error) {
@@ -82,6 +95,11 @@ class RegisterViewModel (private val buyerRepository: BuyerRepository) : ViewMod
                 toast(err.message.toString())
             }
         })
+    }
+
+    fun register(registerBuyer: RegisterBuyer){
+        setLoading()
+        generateTokenFirebase(registerBuyer)
     }
 
     fun listenToState() = state

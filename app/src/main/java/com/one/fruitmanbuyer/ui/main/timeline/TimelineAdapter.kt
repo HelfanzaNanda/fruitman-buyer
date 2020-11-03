@@ -29,10 +29,11 @@ class TimelineAdapter (private val products : MutableList<Product>, private val 
     class ViewHolder(itemView : View) : RecyclerView.ViewHolder(itemView){
         fun bind(product: Product, context: Context){
             with(itemView){
+                txt_seller_name.text = product.seller!!.name
                 txt_name_product.text = product.name
                 txt_address_product.text = product.address
                 txt_price_product.text = Constants.setToIDR(product.price!!)
-                img_product.load(product.image)
+                img_product.load(product.images[0].image)
                 setOnClickListener {
                     context.startActivity(Intent(context, DetailProductActivity::class.java).apply {
                         putExtra("PRODUCT", product)

@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.lifecycle.Observer
 import com.one.fruitmanbuyer.R
+import com.one.fruitmanbuyer.ui.forget_password.ForgetPasswordActivity
 import com.one.fruitmanbuyer.ui.main.MainActivity
 import com.one.fruitmanbuyer.ui.register.RegisterActivity
 import com.one.fruitmanbuyer.utils.Constants
@@ -22,6 +23,7 @@ class LoginActivity : AppCompatActivity() {
         btn_goto_register.setOnClickListener { startActivity(Intent(this@LoginActivity, RegisterActivity::class.java)) }
         observer()
         login()
+        txt_forgot_password.setOnClickListener { startActivity(Intent(this, ForgetPasswordActivity::class.java)) }
     }
 
     private fun observer() {
@@ -55,7 +57,7 @@ class LoginActivity : AppCompatActivity() {
 
     private fun handleValidate(validate: LoginState.Validate) {
         validate.email?.let { setErrorEmail(it) }
-        validate.password?.let { setErrorEmail(it) }
+        validate.password?.let { setErrorPassword(it) }
     }
 
     private fun handleSuccess(token: String) {

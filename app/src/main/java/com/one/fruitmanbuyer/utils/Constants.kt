@@ -14,7 +14,7 @@ import java.util.regex.Pattern
 
 class Constants {
     companion object{
-        val END_POINT = "https://fruitman-project.herokuapp.com/"
+        val END_POINT = "https://fruitman.tugas-akhir.com/"
         //val token = "Bearer EiBxBgjt1afSMsvFcoCLoNxLmxWwt4hA4FPO2JVdvjj27gzMh2TTxFwxGmBmgFLz45OF9hkFX2F9oGni"
 
 
@@ -38,7 +38,7 @@ class Constants {
         }
 
         fun isValidEmail(email : String) = android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()
-        fun isValidPassword(pass : String) = pass.length >= 8
+        fun isValidPassword(pass : String) = pass.length >= 7
 
         fun setToIDR(num : Int) : String {
             val localeID = Locale("in", "ID")

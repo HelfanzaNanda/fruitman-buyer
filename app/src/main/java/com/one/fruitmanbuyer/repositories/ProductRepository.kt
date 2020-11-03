@@ -1,5 +1,6 @@
 package com.one.fruitmanbuyer.repositories
 
+import com.google.gson.Gson
 import com.one.fruitmanbuyer.models.Product
 import com.one.fruitmanbuyer.utils.ArrayResponse
 import com.one.fruitmanbuyer.webservices.ApiService
@@ -11,6 +12,8 @@ import retrofit2.Response
 interface ProductContract{
     fun fetchProducts(token : String, listener : ArrayResponse<Product>)
     fun searchProducts(token: String, name : String, listener: ArrayResponse<Product>)
+    fun fetchProductsByCriteria(token: String, sub_district_id : String, fruit_id : String, listener: ArrayResponse<Product>)
+    fun fetchProductsBySubDistrict(token: String, sub_district_id: String, listener: ArrayResponse<Product>)
 }
 
 class ProductRepository(private val api : ApiService) : ProductContract{
@@ -25,7 +28,6 @@ class ProductRepository(private val api : ApiService) : ProductContract{
                     response.isSuccessful -> {
                         val body = response.body()
                         if (body?.status!!){
-                            println(body.data)
                             listener.onSuccess(body.data)
                         }else{
                             listener.onFailure(Error(body.message))
@@ -55,6 +57,47 @@ class ProductRepository(private val api : ApiService) : ProductContract{
                         }
                     }
                     !response.isSuccessful -> listener.onFailure(Error(response.message()))
+                }
+            }
+
+        })
+    }
+
+    override fun fetchProductsByCriteria(
+        token: String,
+        sub_district_id: String,
+        fruit_id: String,
+        listener: ArrayResponse<Product>
+    ) {
+        api.fetchProductsByCriteria(token, sub_district_id.toInt(), fruit_id.toInt()).enqueue(object : Callback<WrappedListResponse<Product>>{
+            override fun onFailure(call: Call<WrappedListResponse<Product>>, t: Throwable) {
+                listener.onFailure(Error(t.message))
+            }
+
+            override fun onResponse(call: Call<WrappedListResponse<Product>>, response: Response<WrappedListResponse<Product>>) {
+                when{
+                    response.isSuccessful -> listener.onSuccess(response.body()!!.data)
+                    else -> listener.onFailure(Error(response.message()))
+                }
+            }
+
+        })
+    }
+
+    override fun fetchProductsBySubDistrict(
+        token: String,
+        sub_district_id: String,
+        listener: ArrayResponse<Product>
+    ) {
+        api.fetchProductsBySubDistrct(token, sub_district_id.toInt()).enqueue(object : Callback<WrappedListResponse<Product>>{
+            override fun onFailure(call: Call<WrappedListResponse<Product>>, t: Throwable) {
+                listener.onFailure(Error(t.message))
+            }
+
+            override fun onResponse(call: Call<WrappedListResponse<Product>>, response: Response<WrappedListResponse<Product>>) {
+                when{
+                    response.isSuccessful -> listener.onSuccess(response.body()!!.data)
+                    else -> listener.onFailure(Error(response.message()))
                 }
             }
 

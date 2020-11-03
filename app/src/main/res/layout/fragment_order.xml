@@ -41,8 +41,8 @@
                     android:text="Daftar Order"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"/>
+
                 <LinearLayout
-                    android:layout_below="@+id/layoutHeader"
                     android:orientation="vertical"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
@@ -60,11 +60,13 @@
                             android:text= "@string/title_purchasement"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"/>
+
                         <com.google.android.material.card.MaterialCardView
                             android:layout_marginTop="16dp"
                             app:cardCornerRadius="8dp"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content">
+
                             <LinearLayout
                                 android:weightSum="3"
                                 android:padding="16dp"
@@ -81,10 +83,12 @@
                                     android:layout_width="0dp"
                                     android:layout_height="wrap_content">
                                     <ImageView
-                                        android:src="@drawable/waiting"
-                                        android:layout_width="64dp"
-                                        android:layout_height="64dp"/>
+                                        android:layout_marginTop="5dp"
+                                        android:src="@drawable/hourglass"
+                                        android:layout_width="60dp"
+                                        android:layout_height="45dp"/>
                                     <TextView
+                                        android:layout_marginTop="10dp"
                                         android:textAlignment="center"
                                         android:maxLines="2"
                                         android:text="@string/buyer_waiting"
@@ -101,9 +105,9 @@
                                     android:layout_width="0dp"
                                     android:layout_height="wrap_content">
                                     <ImageView
-                                        android:src="@drawable/proses_pembelian"
-                                        android:layout_width="64dp"
-                                        android:layout_height="64dp"/>
+                                        android:src="@drawable/truck"
+                                        android:layout_width="60dp"
+                                        android:layout_height="60dp"/>
                                     <TextView
                                         android:textAlignment="center"
                                         android:maxLines="2"
@@ -121,9 +125,9 @@
                                     android:layout_width="0dp"
                                     android:layout_height="wrap_content">
                                     <ImageView
-                                        android:src="@drawable/agreement"
-                                        android:layout_width="64dp"
-                                        android:layout_height="64dp"/>
+                                        android:src="@drawable/check"
+                                        android:layout_width="60dp"
+                                        android:layout_height="60dp"/>
                                     <TextView
                                         android:textAlignment="center"
                                         android:maxLines="2"

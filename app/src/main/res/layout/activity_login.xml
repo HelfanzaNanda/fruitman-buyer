@@ -88,6 +88,18 @@
                 style="@style/Widget.MaterialComponents.Button.OutlinedButton"
                 android:text="Register"
                 android:layout_height="56dp"/>
+
+
+            <TextView
+                android:id="@+id/txt_forgot_password"
+                android:textSize="18sp"
+                android:layout_marginTop="10dp"
+                android:gravity="end"
+                android:textColor="@color/colorPrimary"
+                android:text="Forgot Password?"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
             <ProgressBar
                 android:id="@+id/loading"
                 android:layout_marginBottom="16dp"

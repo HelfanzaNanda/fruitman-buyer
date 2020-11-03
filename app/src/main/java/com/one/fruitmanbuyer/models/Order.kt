@@ -8,9 +8,11 @@ import kotlinx.android.parcel.Parcelize
 data class Order(
     @SerializedName("id") var id : Int? = null,
     @SerializedName("buyer") var buyer : Buyer,
+    @SerializedName("seller") var seller : Seller,
     @SerializedName("product") var product: Product,
     @SerializedName("offer_price") var offer_price : Int? = 0,
     @SerializedName("status") var status : String? = null,
     @SerializedName("arrive") var arrive : Boolean? = false,
-    @SerializedName("complete") var complete : Boolean? = false
+    @SerializedName("complete") var complete : Boolean? = false,
+    @SerializedName("updated_at") var updated_at : String? = null
 ) : Parcelable

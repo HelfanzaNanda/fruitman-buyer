@@ -14,6 +14,14 @@ class DetailProductViewModel (private val orderRepository: OrderRepository) : Vi
     private fun toast(message: String){ state.value = DetailProductState.ShowToast(message) }
     private fun success() { state.value = DetailProductState.Success }
 
+    fun validate(offerPrice : String) : Boolean {
+        if (offerPrice.isEmpty()){
+            state.value = DetailProductState.Validate(offrePrice = "masukkan tawaran harga")
+            return false
+        }
+        return true
+    }
+
     fun createOrder(token : String, sellerId : String, productId : String, offerPrice : String){
         setLoading()
         orderRepository.createOrder(token, sellerId, productId, offerPrice, object : SingleResponse<Order>{
@@ -36,4 +44,7 @@ sealed class DetailProductState{
     data class Loading(var state : Boolean = false) : DetailProductState()
     data class ShowToast(var message : String) : DetailProductState()
     object Success : DetailProductState()
+    data class Validate(var offrePrice : String? = null) : DetailProductState()
+    object Reset : DetailProductState()
+
 }

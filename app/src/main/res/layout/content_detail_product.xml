@@ -23,23 +23,39 @@
             android:layout_height="wrap_content">
             <TextView
                 android:id="@+id/product_name"
-                android:layout_weight="0.7"
+                android:layout_weight="0.68"
                 android:textColor="@color/colorBlackSteel"
                 android:textSize="18sp"
                 android:textStyle="bold"
                 android:text="Nama produk"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"/>
+
             <TextView
                 android:id="@+id/product_price"
                 android:textStyle="bold"
                 android:textColor="@color/colorPrimaryDark"
-                android:text="Rp.800000"
+                android:text="Rp.1.500.000,00"
                 android:layout_weight="0.3"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"/>
         </LinearLayout>
 
+        <TextView
+            android:id="@+id/txt_seller_name"
+            android:text="Nama Pemilik"
+            android:textColor="#2472DF"
+            android:layout_marginTop="3dp"
+            android:layout_marginBottom="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:text="Alamat :"
+            android:textColor="@color/colorBlackSteel"
+            android:layout_marginTop="3dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
         <TextView
             android:id="@+id/product_address"
             android:text="Alamat"
@@ -48,7 +64,27 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
 
+        <TextView
+            android:text="No WA :"
+            android:textColor="@color/colorBlackSteel"
+            android:layout_marginTop="3dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+        <TextView
+            android:id="@+id/product_whatsapp"
+            android:text="WA"
+            android:layout_marginTop="3dp"
+            android:layout_marginBottom="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
 
+
+        <TextView
+            android:text="Deskripsi :"
+            android:textColor="@color/colorBlackSteel"
+            android:layout_marginTop="3dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
         <TextView
             android:id="@+id/product_desc"
             android:text="@string/large_text"
@@ -70,7 +106,7 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.button.MaterialButton
-            android:text="tawar produk"
+            android:text="order produk"
             android:id="@+id/btn_offer_price"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">

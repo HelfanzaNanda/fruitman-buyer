@@ -1,14 +1,19 @@
 package com.one.fruitmanbuyer
 
 import android.app.Application
-import com.one.fruitmanbuyer.repositories.BuyerRepository
-import com.one.fruitmanbuyer.repositories.OrderRepository
-import com.one.fruitmanbuyer.repositories.ProductRepository
+import com.one.fruitmanbuyer.repositories.*
+import com.one.fruitmanbuyer.ui.complete.CompleteViewModel
 import com.one.fruitmanbuyer.ui.detail_product.DetailProductViewModel
+import com.one.fruitmanbuyer.ui.forget_password.ForgotPasswordViewModel
+import com.one.fruitmanbuyer.ui.in_progress.InProgressViewModel
 import com.one.fruitmanbuyer.ui.login.LoginViewModel
+import com.one.fruitmanbuyer.ui.main.profile.ProfileViewModel
 import com.one.fruitmanbuyer.ui.main.timeline.TimelineFragment
 import com.one.fruitmanbuyer.ui.main.timeline.TimelineViewModel
+import com.one.fruitmanbuyer.ui.order_in.OrderInViewModel
 import com.one.fruitmanbuyer.ui.register.RegisterViewModel
+import com.one.fruitmanbuyer.ui.update_password.UpdatePasswordViewModel
+import com.one.fruitmanbuyer.ui.update_profil.UpdateProfilViewModel
 import com.one.fruitmanbuyer.webservices.ApiClient
 import io.fotoapparat.selector.single
 import org.koin.android.ext.koin.androidContext
@@ -31,18 +36,30 @@ class MyApp : Application(){
 
 val retrofitModule = module {
     single { ApiClient.instance() }
+    single { FirebaseRepository() }
 }
 
 val repositoryModules = module {
     factory { BuyerRepository(get()) }
     factory { ProductRepository(get()) }
     factory { OrderRepository(get()) }
+    factory { FruitRepository(get()) }
+    factory { SubDistrictRepository(get()) }
 }
 
 val viewModelModules = module {
-    viewModel { LoginViewModel(get()) }
-    viewModel { RegisterViewModel(get()) }
+    viewModel { LoginViewModel(get(), get()) }
+    viewModel { RegisterViewModel(get(), get()) }
     viewModel { DetailProductViewModel(get()) }
 
-    viewModel { TimelineViewModel(get()) }
+    viewModel { OrderInViewModel(get()) }
+    viewModel { InProgressViewModel(get()) }
+    viewModel { CompleteViewModel(get()) }
+    viewModel { ForgotPasswordViewModel(get()) }
+
+    viewModel { TimelineViewModel(get(), get(), get()) }
+    viewModel { ProfileViewModel(get()) }
+    viewModel { UpdateProfilViewModel(get()) }
+
+    viewModel { UpdatePasswordViewModel(get()) }
 }

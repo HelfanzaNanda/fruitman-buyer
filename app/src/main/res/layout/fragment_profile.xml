@@ -1,67 +1,126 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-
-    xmlns:tools="http://schemas.android.com/tools"
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:orientation="vertical">
 
-    <ScrollView
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-        <RelativeLayout
+        android:layout_height="wrap_content">
+
+        <com.github.florent37.shapeofview.shapes.ArcView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/layoutHeader">
-            <!-- android:background="@drawable/background_search_corner"-->
-            <com.github.florent37.shapeofview.shapes.ArcView
+            android:elevation="0dp"
+            app:shape_arc_height="20dp"
+            app:shape_arc_position="bottom">
+
+            <FrameLayout
+                android:background="@drawable/background_try"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:elevation="0dp"
-                app:shape_arc_height="20dp"
-                app:shape_arc_position="bottom">
+                android:layout_height="220dp"/>
 
-                <FrameLayout
-                    android:background="@drawable/background_try"
-                    android:layout_width="match_parent"
-                    android:layout_height="220dp"/>
+        </com.github.florent37.shapeofview.shapes.ArcView>
 
-            </com.github.florent37.shapeofview.shapes.ArcView>
+        <ProgressBar
+            android:indeterminate="true"
+            android:id="@+id/loading"
+            style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_marginTop="38dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:textColor="@color/colorWhite"
+                android:textStyle="bold"
+                android:textSize="38sp"
+                android:text="Profile"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+<!--            <TextView-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:text="Profile"-->
+<!--                android:textSize="30dp"-->
+<!--                android:textStyle="bold"-->
+<!--                android:textColor="@color/colorWhite"-->
+<!--                android:layout_marginTop="25dp"-->
+<!--                android:layout_marginEnd="16dp"-->
+<!--                android:layout_marginStart="16dp" />-->
+
             <LinearLayout
-                android:layout_marginTop="25dp"
-                android:orientation="vertical"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:weightSum="1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
-                <TextView
-                    android:layout_marginStart="16dp"
-                    android:layout_marginEnd="16dp"
-                    android:textColor="@color/colorWhite"
-                    android:textStyle="bold"
-                    android:textSize="30sp"
-                    android:text="Profil"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:layout_margin="16dp"
+                    android:id="@+id/profile_image"
+                    android:scaleType="centerCrop"
+                    android:layout_width="0dp"
+                    android:layout_weight="0.2"
+                    android:layout_height="64dp"/>
                 <LinearLayout
-                    android:layout_below="@+id/layoutHeader"
+                    android:layout_weight="0.6"
+                    android:gravity="center_vertical"
                     android:orientation="vertical"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-                    <LinearLayout
-                        android:layout_margin="16dp"
-                        android:orientation="vertical"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent">
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content">
 
+                    <TextView
+                        android:maxLines="2"
+                        android:id="@+id/profile_name"
+                        android:textColor="@color/colorWhite"
+                        android:textStyle="bold"
+                        android:textSize="18sp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+                    <TextView
+                        android:maxLines="1"
+                        android:textColor="@color/colorWhite"
+                        android:id="@+id/profile_email"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
 
-
-
-                    </LinearLayout>
+                    <TextView
+                        android:maxLines="1"
+                        android:textColor="@color/colorWhite"
+                        android:id="@+id/profile_telp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
                 </LinearLayout>
+
             </LinearLayout>
 
-        </RelativeLayout>
-    </ScrollView>
+            <TextView
+                android:layout_marginEnd="16dp"
+                android:layout_marginStart="16dp"
+                android:textColor="@color/colorBlackSteel"
+                android:textStyle="bold"
+                android:layout_marginTop="30dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
 
+            <androidx.recyclerview.widget.RecyclerView
+                android:layout_marginStart="16dp"
+                android:id="@+id/rv_pref"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
 
-</RelativeLayout>
+        </LinearLayout>
 
+    </RelativeLayout>
+
+</ScrollView>
