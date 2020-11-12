@@ -1,9 +1,7 @@
 package com.one.fruitmanbuyer.ui.main.profile
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.View
-import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -12,23 +10,17 @@ import coil.transform.CircleCropTransformation
 import com.one.fruitmanbuyer.R
 import com.one.fruitmanbuyer.models.Buyer
 import com.one.fruitmanbuyer.models.Preference
-import com.one.fruitmanbuyer.ui.login.LoginActivity
-import com.one.fruitmanbuyer.ui.update_password.UpdatePasswordActivity
-import com.one.fruitmanbuyer.ui.update_profil.UpdateProfilActivity
 import com.one.fruitmanbuyer.utils.Constants
 import com.one.fruitmanbuyer.utils.extensions.gone
 import com.one.fruitmanbuyer.utils.extensions.showToast
 import com.one.fruitmanbuyer.utils.extensions.visible
-import kotlinx.android.synthetic.main.fragment_profile.*
-import kotlinx.android.synthetic.main.fragment_profile.profile_email
-import kotlinx.android.synthetic.main.fragment_profile.profile_image
-import kotlinx.android.synthetic.main.fragment_profile.profile_name
-import kotlinx.android.synthetic.main.fragment_profile.profile_telp
 import kotlinx.android.synthetic.main.fragment_profile.view.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class ProfileFragment : Fragment(R.layout.fragment_profile) {
+
     private val profileViewModel: ProfileViewModel by viewModel()
+
     private var prefs = mutableListOf<Preference>().apply {
         add(Preference(1, R.string.update_profile, R.drawable.ic_person_black_24dp))
         add(Preference(2, R.string.update_password, R.drawable.ic_key))
@@ -37,11 +29,16 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        observer()
         observe()
     }
 
-    private fun observer() = profileViewModel.listenToState().observer(requireActivity(), Observer { handleUiState(it) })
+    private fun observe(){
+        observeState()
+        observeCurrentUser()
+    }
+
+    private fun observeState() = profileViewModel.listenToState().observer(requireActivity(), Observer { handleUiState(it) })
+    private fun observeCurrentUser() = profileViewModel.listenToUser().observe(requireActivity(), Observer { handleUser(it) })
 
     private fun handleUiState(it: ProfileState) {
         when (it) {
@@ -50,9 +47,7 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
         }
     }
 
-    private fun handleLoading(state: Boolean) = if (state) loading.visible() else loading.gone()
-
-    private fun observe() = profileViewModel.listenToUser().observe(requireActivity(), Observer { handleUser(it) })
+    private fun handleLoading(state: Boolean) = if (state) requireView().loading.visible() else requireView().loading.gone()
 
     private fun handleUser(buyer: Buyer) {
         with(requireView()){
@@ -64,15 +59,17 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
             profile_telp.text = buyer.phone
 
             requireView().rv_pref.apply {
-                layoutManager = LinearLayoutManager(activity).apply { orientation = LinearLayoutManager.HORIZONTAL }
+                layoutManager = LinearLayoutManager(requireActivity(), LinearLayoutManager.HORIZONTAL, false)
                 adapter = ProfileAdapter(requireActivity(), prefs)
             }
         }
 
     }
 
+    private fun fetchProfile() = profileViewModel.profile(Constants.getToken(requireActivity()))
+
     override fun onResume() {
         super.onResume()
-        profileViewModel.profile(Constants.getToken(requireActivity()))
+        fetchProfile()
     }
 }
