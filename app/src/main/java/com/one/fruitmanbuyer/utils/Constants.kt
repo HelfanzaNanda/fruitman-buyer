@@ -14,7 +14,7 @@ import java.util.regex.Pattern
 
 class Constants {
     companion object{
-        val END_POINT = "https://fruitman.tugas-akhir.com/"
+        val END_POINT = "https://fruitman.alfara-dev.com/"
         //val token = "Bearer EiBxBgjt1afSMsvFcoCLoNxLmxWwt4hA4FPO2JVdvjj27gzMh2TTxFwxGmBmgFLz45OF9hkFX2F9oGni"
 
 

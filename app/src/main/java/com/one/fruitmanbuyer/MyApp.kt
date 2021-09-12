@@ -13,6 +13,7 @@ import com.one.fruitmanbuyer.ui.main.timeline.TimelineViewModel
 import com.one.fruitmanbuyer.ui.order_in.OrderInViewModel
 import com.one.fruitmanbuyer.ui.premium.PremiumViewModel
 import com.one.fruitmanbuyer.ui.register.RegisterViewModel
+import com.one.fruitmanbuyer.ui.report.ReportViewModel
 import com.one.fruitmanbuyer.ui.update_password.UpdatePasswordViewModel
 import com.one.fruitmanbuyer.ui.update_profil.UpdateProfilViewModel
 import com.one.fruitmanbuyer.webservices.ApiClient
@@ -47,6 +48,7 @@ val repositoryModules = module {
     factory { OrderRepository(get()) }
     factory { FruitRepository(get()) }
     factory { SubDistrictRepository(get()) }
+    factory { ReportRepository(get()) }
 }
 
 val viewModelModules = module {
@@ -66,4 +68,6 @@ val viewModelModules = module {
     viewModel { UpdatePasswordViewModel(get()) }
 
     viewModel { PremiumViewModel(get(), get()) }
+
+    viewModel { ReportViewModel(get()) }
 }

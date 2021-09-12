@@ -33,7 +33,10 @@ class TimelineAdapter (private val products : MutableList<Product>, private val 
                 txt_name_product.text = product.name
                 txt_address_product.text = product.address
                 txt_price_product.text = Constants.setToIDR(product.price!!)
-                img_product.load(product.images[0].image)
+                if (product.images.size > 0){
+                    img_product.load(product.images[0].image)
+                }
+                img_product.load(R.drawable.fruitman)
                 setOnClickListener {
                     context.startActivity(Intent(context, DetailProductActivity::class.java).apply {
                         putExtra("PRODUCT", product)

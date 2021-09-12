@@ -136,6 +136,11 @@ interface ApiService {
         @Header("Authorization") token : String,
         @Path("id") id : Int
     ) : Call<WrappedResponse<Order>>
+
+    @GET("api/user/report")
+    fun report(
+        @Header("Authorization") token : String
+    ) : Call<WrappedListResponse<Report>>
 }
 data class WrappedResponse<T>(
     @SerializedName("message") var message : String?,

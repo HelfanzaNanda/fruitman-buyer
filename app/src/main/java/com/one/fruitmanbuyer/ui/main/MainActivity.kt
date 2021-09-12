@@ -18,6 +18,7 @@ import com.one.fruitmanbuyer.ui.login.LoginActivity
 import com.one.fruitmanbuyer.ui.main.order.OrderFragment
 import com.one.fruitmanbuyer.ui.main.profile.ProfileFragment
 import com.one.fruitmanbuyer.ui.main.timeline.TimelineFragment
+import com.one.fruitmanbuyer.ui.report.ReportActivity
 import com.one.fruitmanbuyer.utils.Constants
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -49,6 +50,10 @@ class MainActivity : AppCompatActivity() {
                     dialog.dismiss()
                 }
             }.show()
+        }
+
+        action_report.setOnClickListener {
+            startActivity(Intent(this, ReportActivity::class.java))
         }
 
     }

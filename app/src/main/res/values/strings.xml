@@ -34,4 +34,5 @@
     <string name="update_password">Update Password</string>
     <string name="logout">Logout</string>
     <string name="premium">Upgrade Premium</string>
+    <string name="title_activity_report">ReportActivity</string>
 </resources>
