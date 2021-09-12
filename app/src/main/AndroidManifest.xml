@@ -13,8 +13,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.update_password.UpdatePasswordActivity"
-                    android:label="Update Password" />
+        <activity android:name=".ui.premium.PremiumActivity"></activity>
+        <activity
+            android:name=".ui.update_password.UpdatePasswordActivity"
+            android:label="Update Password" />
         <activity android:name=".ui.maps.MapsActivity" />
         <activity android:name=".ui.product.ProductActivity" />
         <activity android:name=".ui.forget_password.ForgetPasswordActivity" />

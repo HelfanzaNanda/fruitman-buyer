@@ -11,6 +11,7 @@ import com.one.fruitmanbuyer.ui.main.profile.ProfileViewModel
 import com.one.fruitmanbuyer.ui.main.timeline.TimelineFragment
 import com.one.fruitmanbuyer.ui.main.timeline.TimelineViewModel
 import com.one.fruitmanbuyer.ui.order_in.OrderInViewModel
+import com.one.fruitmanbuyer.ui.premium.PremiumViewModel
 import com.one.fruitmanbuyer.ui.register.RegisterViewModel
 import com.one.fruitmanbuyer.ui.update_password.UpdatePasswordViewModel
 import com.one.fruitmanbuyer.ui.update_profil.UpdateProfilViewModel
@@ -40,6 +41,7 @@ val retrofitModule = module {
 }
 
 val repositoryModules = module {
+    factory { BankRepository(get()) }
     factory { BuyerRepository(get()) }
     factory { ProductRepository(get()) }
     factory { OrderRepository(get()) }
@@ -62,4 +64,6 @@ val viewModelModules = module {
     viewModel { UpdateProfilViewModel(get()) }
 
     viewModel { UpdatePasswordViewModel(get()) }
+
+    viewModel { PremiumViewModel(get(), get()) }
 }

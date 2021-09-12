@@ -22,6 +22,7 @@ interface BuyerContract{
     fun updatePhotoProfile(token: String, pathImage : String, listener: SingleResponse<Buyer>)
     fun forgotPassword(email: String, listener: SingleResponse<Buyer>)
     fun updatePassword(token : String, password: String, listener: SingleResponse<Buyer>)
+    fun premium(token: String, image : String, listener: SingleResponse<Buyer>)
 }
 
 class BuyerRepository(private val api : ApiService) : BuyerContract {
@@ -182,6 +183,30 @@ class BuyerRepository(private val api : ApiService) : BuyerContract {
                     response.isSuccessful -> {
                         val b = response.body()
                         if (b?.status!!) listener.onSuccess(b.data) else listener.onFailure(Error(b.message))
+                    }
+                    else -> listener.onFailure(Error(response.message()))
+                }
+            }
+
+        })
+    }
+
+    override fun premium(token: String, image: String, listener: SingleResponse<Buyer>) {
+        val file = File(image)
+        val requestBodyForFile = RequestBody.create(MediaType.parse("image/*"), file)
+        val img = MultipartBody.Part.createFormData("image", file.name, requestBodyForFile)
+        api.premium(token, img).enqueue(object : Callback<WrappedResponse<Buyer>>{
+            override fun onFailure(call: Call<WrappedResponse<Buyer>>, t: Throwable) {
+                listener.onFailure(Error(t.message))
+            }
+
+            override fun onResponse(call: Call<WrappedResponse<Buyer>>, response: Response<WrappedResponse<Buyer>>) {
+                when{
+                    response.isSuccessful -> {
+                        val body = response.body()
+                        if (body?.status!!) listener.onSuccess(body.data) else listener.onFailure(
+                            Error(body.message)
+                        )
                     }
                     else -> listener.onFailure(Error(response.message()))
                 }

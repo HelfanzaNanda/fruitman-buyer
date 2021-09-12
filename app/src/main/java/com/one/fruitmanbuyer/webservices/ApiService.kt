@@ -8,6 +8,17 @@ import retrofit2.Call
 import retrofit2.http.*
 
 interface ApiService {
+
+    @GET("api/bank")
+    fun fetchBank() : Call<WrappedResponse<Bank>>
+
+    @Multipart
+    @POST("api/user/premium")
+    fun premium(
+        @Header("Authorization") token : String,
+        @Part image : MultipartBody.Part
+    ) : Call<WrappedResponse<Buyer>>
+
     @FormUrlEncoded
     @POST("api/user/login")
     fun login(

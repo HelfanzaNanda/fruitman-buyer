@@ -14,7 +14,9 @@ data class Buyer(
     @SerializedName("phone")var phone : String? = null,
     @SerializedName("api_token")var token : String? = null,
     @SerializedName("image")var image : String? = null,
-    @SerializedName("address")var address : String? = null
+    @SerializedName("address")var address : String? = null,
+    @SerializedName("premium") var premium : Boolean = false,
+    @SerializedName("overload") var overload : Boolean = false
 ) : Parcelable
 
 

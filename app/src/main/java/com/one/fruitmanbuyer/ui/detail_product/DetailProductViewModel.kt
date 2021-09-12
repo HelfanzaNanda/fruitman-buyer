@@ -27,7 +27,7 @@ class DetailProductViewModel (private val orderRepository: OrderRepository) : Vi
         orderRepository.createOrder(token, sellerId, productId, offerPrice, object : SingleResponse<Order>{
             override fun onSuccess(data: Order?) {
                 hideLoading()
-                success()
+                data?.let { success() }
             }
 
             override fun onFailure(err: Error) {

@@ -27,10 +27,13 @@ class UpdateProfilActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_update_profil)
         setSupportActionBar(toolbar)
-        setUpUI()
-        btn_add_image.setOnClickListener { Pix.start(this, REQ_CODE_PIX) }
-        observer()
+        openPick()
+        observe()
         updateProfil()
+    }
+
+    private fun  openPick(){
+        btn_add_image.setOnClickListener { Pix.start(this, REQ_CODE_PIX) }
     }
 
     private fun updateProfil() {
@@ -45,8 +48,23 @@ class UpdateProfilActivity : AppCompatActivity() {
         }
     }
 
-    private fun observer() {
-        updateProfilViewModel.listenToState().observer(this, Observer { handleUiState(it) })
+    private fun observe() {
+        observeState()
+        observeUser()
+    }
+
+    private fun observeState() = updateProfilViewModel.listenToState().observer(this, Observer { handleUiState(it) })
+    private fun observeUser() = updateProfilViewModel.listenCurrentUser().observe(this, Observer { handleBuyer(it) })
+
+    private fun handleBuyer(buyer: Buyer?) {
+        buyer?.let {
+            iv_seller.load(it.image)
+            et_name.setText(it.name)
+            et_email.setText(it.email)
+            et_address.setText(it.address)
+            et_phone.setText(it.phone)
+            iv_seller.load(it.image)
+        }
     }
 
     private fun handleUiState(it: UpdateProfilState) {
@@ -66,17 +84,6 @@ class UpdateProfilActivity : AppCompatActivity() {
         showToast("berhasil mengupdate data")
     }
 
-    private fun setUpUI() {
-        getPassedSeller()?.let {
-            iv_seller.load(it.image)
-            et_name.setText(it.name)
-            et_email.setText(it.email)
-            et_address.setText(it.address)
-            et_phone.setText(it.phone)
-            iv_seller.load(it.image)
-        }
-    }
-
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if(requestCode == REQ_CODE_PIX && resultCode == Activity.RESULT_OK && data != null){
@@ -88,5 +95,11 @@ class UpdateProfilActivity : AppCompatActivity() {
         }
     }
 
-    private fun getPassedSeller() : Buyer? = intent.getParcelableExtra("BUYER")
+    private fun fetchCurrentUser() = updateProfilViewModel.currentUser(Constants.getToken(this@UpdateProfilActivity))
+
+    override fun onResume() {
+        super.onResume()
+        fetchCurrentUser()
+    }
+
 }

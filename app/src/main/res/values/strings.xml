@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">FruitmanBuyer</string>
+    <string name="app_name">Penebas</string>
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
@@ -15,7 +15,6 @@
         "A material metaphor is the unifying theory of a rationalized space and a system of motion."
         "The material is grounded in tactile reality, inspired by the study of paper and ink, yet "
         "technologically advanced and open to imagination and magic.\n"
-
 
     </string>
     <string name="title_activity_order_in">OrderInActivity</string>
@@ -34,4 +33,5 @@
     <string name="update_profile">Update Profil</string>
     <string name="update_password">Update Password</string>
     <string name="logout">Logout</string>
+    <string name="premium">Upgrade Premium</string>
 </resources>

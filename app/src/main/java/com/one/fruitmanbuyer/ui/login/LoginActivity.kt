@@ -34,7 +34,7 @@ class LoginActivity : AppCompatActivity() {
         when(it){
             is LoginState.Loading -> handleLoading(it.state)
             is LoginState.ShowToast -> showToast(it.message)
-            is LoginState.Success -> handleSuccess(it.token)
+            is LoginState.Success -> handleSuccess(it.token, it.premium, it.overload)
             is LoginState.Validate -> handleValidate(it)
             is LoginState.Reset -> handleReset()
         }
@@ -60,8 +60,10 @@ class LoginActivity : AppCompatActivity() {
         validate.password?.let { setErrorPassword(it) }
     }
 
-    private fun handleSuccess(token: String) {
+    private fun handleSuccess(token: String, premium: Boolean, overload: Boolean) {
         Constants.setToken(this@LoginActivity, "Bearer $token")
+        Constants.setPremium(this@LoginActivity, premium)
+        Constants.setOverload(this@LoginActivity, overload)
         startActivity(Intent(this@LoginActivity, MainActivity::class.java).apply {
             flags = Intent.FLAG_ACTIVITY_CLEAR_TASK
             flags = Intent.FLAG_ACTIVITY_CLEAR_TOP

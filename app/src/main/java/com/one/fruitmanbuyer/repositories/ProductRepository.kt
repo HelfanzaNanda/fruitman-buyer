@@ -9,14 +9,14 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-interface ProductContract{
+interface ProductContract {
     fun fetchProducts(token : String, listener : ArrayResponse<Product>)
     fun searchProducts(token: String, name : String, listener: ArrayResponse<Product>)
     fun fetchProductsByCriteria(token: String, sub_district_id : String, fruit_id : String, listener: ArrayResponse<Product>)
     fun fetchProductsBySubDistrict(token: String, sub_district_id: String, listener: ArrayResponse<Product>)
 }
 
-class ProductRepository(private val api : ApiService) : ProductContract{
+class ProductRepository(private val api : ApiService) : ProductContract {
     override fun fetchProducts(token: String, listener: ArrayResponse<Product>) {
         api.fetchProducts(token).enqueue(object : Callback<WrappedListResponse<Product>>{
             override fun onFailure(call: Call<WrappedListResponse<Product>>, t: Throwable) {
@@ -36,7 +36,6 @@ class ProductRepository(private val api : ApiService) : ProductContract{
                     !response.isSuccessful -> listener.onFailure(Error(response.message()))
                 }
             }
-
         })
     }
 

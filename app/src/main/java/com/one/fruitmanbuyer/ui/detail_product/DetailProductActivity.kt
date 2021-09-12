@@ -8,10 +8,10 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.Observer
-import coil.api.load
 import com.one.fruitmanbuyer.R
 import com.one.fruitmanbuyer.models.Product
 import com.one.fruitmanbuyer.ui.maps.MapsActivity
+import com.one.fruitmanbuyer.ui.premium.PremiumActivity
 import com.one.fruitmanbuyer.utils.Constants
 import com.one.fruitmanbuyer.utils.extensions.*
 import com.smarteist.autoimageslider.IndicatorView.animation.type.IndicatorAnimationType
@@ -86,12 +86,48 @@ class DetailProductActivity : AppCompatActivity() {
 
     private fun order(){
         btn_offer_price.setOnClickListener {
-            val token = Constants.getToken(this@DetailProductActivity)
-            val offerPrice = et_offer_price.text.toString().trim()
-            val sellerId = getPassedProduct()?.seller!!.id.toString()
-            val productId = getPassedProduct()?.id.toString()
+            if (!isPremium()){
+                if(isOverload()){
+                    alertOverload()
+                }else{
+                    createOrder()
+                }
+            }else{
+                createOrder()
+            }
+        }
+    }
+
+    private fun createOrder(){
+        val token = Constants.getToken(this@DetailProductActivity)
+        val offerPrice = et_offer_price.text.toString().trim()
+        val sellerId = getPassedProduct()?.seller!!.id.toString()
+        val productId = getPassedProduct()?.id.toString()
+        if (offerPrice.isEmpty()){
+            alert()
+        }else{
             detailProductViewModel.createOrder(token, sellerId, productId, offerPrice)
         }
+    }
+
+    private fun alert(){
+        AlertDialog.Builder(this@DetailProductActivity).apply {
+            setMessage("tawaran harus di isi")
+            setPositiveButton("ya"){dialog, which -> dialog.dismiss()  }
+        }.show()
+    }
+
+    private fun alertOverload(){
+        AlertDialog.Builder(this@DetailProductActivity).apply {
+            setMessage("maaf untuk free hanya bisa order 2 produk saja, jika ingin lebih silahkan upgrade premium")
+            setPositiveButton("premium"){dialog, which ->
+                dialog.dismiss()
+                startActivity(Intent(this@DetailProductActivity, PremiumActivity::class.java))
+            }
+            setNegativeButton("tidak"){dialog, which ->
+                dialog.dismiss()
+            }
+        }.show()
     }
 
     private fun goToMapsActivity(){
@@ -133,4 +169,6 @@ class DetailProductActivity : AppCompatActivity() {
 
     private fun getPassedProduct() : Product? = intent.getParcelableExtra("PRODUCT")
     private fun isOrdered() = intent.getBooleanExtra("IS_ORDER", false)
+    private fun isOverload() = Constants.getOverload(this@DetailProductActivity)
+    private fun isPremium() = Constants.getPremium(this@DetailProductActivity)
 }

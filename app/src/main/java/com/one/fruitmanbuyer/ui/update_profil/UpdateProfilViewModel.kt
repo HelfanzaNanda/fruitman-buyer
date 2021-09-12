@@ -1,5 +1,6 @@
 package com.one.fruitmanbuyer.ui.update_profil
 
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.one.fruitmanbuyer.models.Buyer
 import com.one.fruitmanbuyer.repositories.BuyerRepository
@@ -9,6 +10,7 @@ import com.one.fruitmanbuyer.utils.SingleResponse
 
 class UpdateProfilViewModel(private val buyerRepository: BuyerRepository) : ViewModel() {
     private val state: SingleLiveEvent<UpdateProfilState> = SingleLiveEvent()
+    private val user = MutableLiveData<Buyer>()
     private fun setLoading() { state.value = UpdateProfilState.Loading(true) }
     private fun hideLoading() { state.value = UpdateProfilState.Loading(false) }
     private fun toast(message: String) { state.value = UpdateProfilState.ShowToast(message) }
@@ -85,7 +87,23 @@ class UpdateProfilViewModel(private val buyerRepository: BuyerRepository) : View
         })
     }
 
+    fun currentUser(token: String){
+        setLoading()
+        buyerRepository.profile(token, object : SingleResponse<Buyer>{
+            override fun onSuccess(data: Buyer?) {
+                hideLoading()
+                data?.let { user.postValue(it) }
+            }
+
+            override fun onFailure(err: Error) {
+                hideLoading()
+                toast(err.message.toString())
+            }
+        })
+    }
+
     fun listenToState() = state
+    fun listenCurrentUser() = user
 }
 
 sealed class UpdateProfilState {
